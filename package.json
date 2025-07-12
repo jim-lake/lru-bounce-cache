@@ -2,7 +2,7 @@
   "name": "lru-bounce-cache",
   "version": "0.0.2",
   "description": "LRU Cache with O(1) access",
-  "main": "lru-bounce-cache.js",
+  "main": "src/lru-bounce-cache.js",
   "scripts": {
     "pretty": "prettier --write *.js",
     "lint": "eslint *.js"
