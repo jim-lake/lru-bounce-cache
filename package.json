@@ -5,7 +5,7 @@
   "main": "dist/lru-bounce-cache.js",
   "scripts": {
     "pretty": "prettier --write \"src/*\" \"test/*\"",
-    "lint": "eslint src/* test/*",
+    "lint": "eslint src/**/*.ts test/**/*.ts",
     "test": "NODE_OPTIONS='--import=tsx' mocha \"test/*.test.ts\"",
     "build": "tsc"
   },
