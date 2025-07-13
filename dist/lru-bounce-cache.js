@@ -24,8 +24,7 @@ var LRUBounceCache = /** @class */ (function () {
         this._cache_list = [];
         for (var i = 0; i < this._options.buffer_count; ++i) {
             this._cache_list.push({
-                length: 0,
-                map: {},
+                map: new Map(),
             });
         }
     }
@@ -33,8 +32,8 @@ var LRUBounceCache = /** @class */ (function () {
         var ret;
         for (var i = 0; i < this._cache_list.length; i++) {
             var cache = this._cache_list[i];
-            if (key in cache.map) {
-                ret = cache.map[key];
+            if (cache.map.has(key)) {
+                ret = cache.map.get(key);
                 if (i > 0) {
                     this.set(key, ret);
                 }
@@ -48,17 +47,13 @@ var LRUBounceCache = /** @class */ (function () {
         return ret;
     };
     LRUBounceCache.prototype.set = function (key, value) {
-        if (!(key in this._cache_list[0].map)) {
-            this._cache_list[0].length++;
-        }
-        this._cache_list[0].map[key] = value;
-        if (this._cache_list[0].length >= this._options.max_items) {
+        this._cache_list[0].map.set(key, value);
+        if (this._cache_list[0].map.size >= this._options.max_items) {
             for (var i = 0; i < this._cache_list.length - 1; ++i) {
                 this._cache_list[i + 1] = this._cache_list[i];
             }
             this._cache_list[0] = {
-                length: 0,
-                map: {},
+                map: new Map(),
             };
         }
     };
@@ -73,4 +68,3 @@ var LRUBounceCache = /** @class */ (function () {
     return LRUBounceCache;
 }());
 exports.LRUBounceCache = LRUBounceCache;
-exports.default = LRUBounceCache;
