@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { LRUBounceCache } from '../src/lru-bounce-cache';
+import { LRUBounceCache } from '../dist/lru-bounce-cache.js';
 
 describe('LRUBounceCache', () => {
   it('should be able to set and get a value', () => {
@@ -17,13 +17,13 @@ describe('LRUBounceCache', () => {
     const cache = new LRUBounceCache<number>();
     cache.set('key', 123);
     cache.get('key');
-    expect(cache.hit_rate()).to.equal(1.0);
+    expect(cache.hitRate()).to.equal(1.0);
   });
 
   it('should have a hit rate of 0.0 after one miss', () => {
     const cache = new LRUBounceCache<number>();
     cache.get('key');
-    expect(cache.hit_rate()).to.equal(0.0);
+    expect(cache.hitRate()).to.equal(0.0);
   });
 
   it('should have a hit rate of 0.5 after one hit and one miss', () => {
@@ -31,7 +31,7 @@ describe('LRUBounceCache', () => {
     cache.set('key', 123);
     cache.get('key');
     cache.get('missing-key');
-    expect(cache.hit_rate()).to.equal(0.5);
+    expect(cache.hitRate()).to.equal(0.5);
   });
 
   it('get bounce', () => {
